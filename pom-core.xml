@@ -85,20 +85,20 @@
             <version>1.2</version>
         </dependency>
         <dependency>
-		    <groupId>taglibs</groupId>
-		    <artifactId>standard</artifactId>
-		    <version>1.1.2</version>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
         </dependency>
 		<dependency>
 	        <groupId>org.antlr</groupId>
 	        <artifactId>antlr</artifactId>
 	        <version>3.5</version>
    		</dependency>
-		<dependency>
-			<groupId>org.hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>2.5.2</version>
-		</dependency>
+        <dependency>
+            <groupId>org.hsqldb</groupId>
+            <artifactId>hsqldb</artifactId>
+            <version>2.5.2</version>
+        </dependency>
         
         <!-- mysql이나 oracle DB 사용시 아래 설정 추가  
         <dependency>

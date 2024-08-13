@@ -23,32 +23,35 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebBindingInitializer;
-import org.springframework.web.context.request.WebRequest;
 
 /**
  * @Class Name : EgovBindingInitializer.java
  * @Description : EgovBindingInitializer Class
  * @Modification Information
- * @
- * @  수정일      수정자              수정내용
- * @ ---------   ---------   -------------------------------
- * @ 2009.03.16           최초생성
- *
+ * 
+ *               <pre>
+ *   수정일      수정자              수정내용
+ *  ---------   ---------   -------------------------------
+ *  2009.03.16           최초생성
+ *   2024.08.12  이백행          이클립스 문제(Problems) 제거
+ *               </pre>
+ * 
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
  * @version 1.0
  * @see
  *
- *  Copyright (C) by MOPAS All right reserved.
+ *      Copyright (C) by MOPAS All right reserved.
  */
 public class EgovBindingInitializer implements WebBindingInitializer {
 
 	/**
-	* initBinder
-	* @param binder
-	* @param request
-	* @see 개발프레임웍크 실행환경 개발팀
-	*/
+	 * initBinder
+	 * 
+	 * @param binder
+	 * @param request
+	 * @see 개발프레임웍크 실행환경 개발팀
+	 */
 	@Override
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

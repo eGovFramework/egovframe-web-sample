@@ -24,10 +24,9 @@ import egovframework.example.sample.service.SampleVO;
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -50,15 +49,14 @@ import org.springframework.stereotype.Service;
 @Service("sampleService")
 public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements EgovSampleService {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleServiceImpl.class);
+    private static final String NO_DATA_MESSAGE = "info.nodata.msg";
 
-	/** SampleDAO */
-	@Resource(name="sampleMapper")
-	private SampleMapper sampleDAO;
+    @Autowired
+    private SampleMapper sampleDAO;
 
-	/** ID Generation */
-	@Resource(name = "egovIdGnrService")
-	private EgovIdGnrService egovIdGnrService;
+    @Autowired
+    private EgovIdGnrService egovIdGnrService;
 
 	/**
 	 * 글을 등록한다.
@@ -66,18 +64,23 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @return 등록 결과
 	 * @exception Exception
 	 */
-	@Override
-	public String insertSample(SampleVO vo) throws Exception {
-		LOGGER.debug(vo.toString());
+    @Override
+    public String insertSample(SampleVO vo) throws Exception {
+        LOGGER.info("Inserting new sample: {}", vo);
+        String id = generateId();
+        vo.setId(id);
+        sampleDAO.insertSample(vo);
+        return id;
+    }
 
-		/** ID Generation Service */
-		String id = egovIdGnrService.getNextStringId();
-		vo.setId(id);
-		LOGGER.debug(vo.toString());
-
-		sampleDAO.insertSample(vo);
-		return id;
-	}
+    private String generateId() {
+        try {
+            return egovIdGnrService.getNextStringId();
+        } catch (Exception e) {
+            LOGGER.error("Error generating ID", e);
+            throw new IdGenerationException("Failed to generate ID", e);
+        }
+    }
 
 	/**
 	 * 글을 수정한다.
@@ -85,10 +88,11 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @return void형
 	 * @exception Exception
 	 */
-	@Override
-	public void updateSample(SampleVO vo) throws Exception {
-		sampleDAO.updateSample(vo);
-	}
+    @Override
+    public void updateSample(SampleVO vo) throws Exception {
+        LOGGER.info("Updating sample: {}", vo);
+        sampleDAO.updateSample(vo);
+    }
 
 	/**
 	 * 글을 삭제한다.
@@ -96,10 +100,11 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @return void형
 	 * @exception Exception
 	 */
-	@Override
-	public void deleteSample(SampleVO vo) throws Exception {
-		sampleDAO.deleteSample(vo);
-	}
+    @Override
+    public void deleteSample(SampleVO vo) throws Exception {
+        LOGGER.info("Deleting sample: {}", vo);
+        sampleDAO.deleteSample(vo);
+    }
 
 	/**
 	 * 글을 조회한다.
@@ -107,13 +112,15 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @return 조회한 글
 	 * @exception Exception
 	 */
-	@Override
-	public SampleVO selectSample(SampleVO vo) throws Exception {
-		SampleVO resultVO = sampleDAO.selectSample(vo);
-		if (resultVO == null)
-			throw processException("info.nodata.msg");
-		return resultVO;
-	}
+    @Override
+    public SampleVO selectSample(SampleVO vo) throws Exception {
+        LOGGER.info("Selecting sample: {}", vo);
+        SampleVO resultVO = sampleDAO.selectSample(vo);
+        if (resultVO == null) {
+            throw new NoDataFoundException(NO_DATA_MESSAGE);
+        }
+        return resultVO;
+    }
 
 	/**
 	 * 글 목록을 조회한다.
@@ -121,10 +128,11 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @return 글 목록
 	 * @exception Exception
 	 */
-	@Override
-	public List<?> selectSampleList(SampleDefaultVO searchVO) throws Exception {
-		return sampleDAO.selectSampleList(searchVO);
-	}
+    @Override
+    public List<?> selectSampleList(SampleDefaultVO searchVO) throws Exception {
+        LOGGER.info("Selecting sample list with search criteria: {}", searchVO);
+        return sampleDAO.selectSampleList(searchVO);
+    }
 
 	/**
 	 * 글 총 갯수를 조회한다.
@@ -132,9 +140,21 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @return 글 총 갯수
 	 * @exception
 	 */
-	@Override
-	public int selectSampleListTotCnt(SampleDefaultVO searchVO) {
-		return sampleDAO.selectSampleListTotCnt(searchVO);
-	}
+    @Override
+    public int selectSampleListTotCnt(SampleDefaultVO searchVO) {
+        LOGGER.info("Counting total samples with search criteria: {}", searchVO);
+        return sampleDAO.selectSampleListTotCnt(searchVO);
+    }
+}
 
+class IdGenerationException extends RuntimeException {
+    public IdGenerationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+class NoDataFoundException extends RuntimeException {
+    public NoDataFoundException(String message) {
+        super(message);
+    }
 }

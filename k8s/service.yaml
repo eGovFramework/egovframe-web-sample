@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: egovframe-web-sample
+spec:
+  selector:
+    app: egovframe-web-sample
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30000
+  type: NodePort
+  

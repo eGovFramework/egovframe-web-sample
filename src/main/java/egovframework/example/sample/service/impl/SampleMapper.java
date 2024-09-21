@@ -35,11 +35,12 @@ import egovframework.example.sample.service.SampleVO;
  *
  *          수정일          수정자           수정내용
  *  ----------------    ------------    ---------------------------
- *   2014.01.24        표준프레임워크센터          최초 생성
+ *   2014.01.24  표준프레임워크센터          최초 생성
+ *   2024.09.21  강동휘          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *
  *      </pre>
  */
-@Mapper("sampleMapper")
+@Mapper
 public interface SampleMapper {
 
 	/**

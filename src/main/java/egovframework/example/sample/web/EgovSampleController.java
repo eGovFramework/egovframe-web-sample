@@ -17,8 +17,6 @@ package egovframework.example.sample.web;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
@@ -35,6 +33,7 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleDefaultVO;
 import egovframework.example.sample.service.SampleVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Class Name : EgovSampleController.java
@@ -46,6 +45,7 @@ import egovframework.example.sample.service.SampleVO;
  *  ---------   ---------   -------------------------------
  *   2009.03.16               최초생성
  *   2024.08.16  이백행          요청 메서드 정리
+ *   2024.09.21  강동휘          컨트리뷰션 롬복 생성자 기반 종속성 주입
  *               </pre>
  * 
  * @author 개발프레임웍크 실행환경 개발팀
@@ -57,19 +57,17 @@ import egovframework.example.sample.service.SampleVO;
  */
 
 @Controller
+@RequiredArgsConstructor
 public class EgovSampleController {
 
 	/** EgovSampleService */
-	@Resource(name = "sampleService")
-	private EgovSampleService sampleService;
+	private final EgovSampleService sampleService;
 
 	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertiesService;
+	private final EgovPropertyService propertiesService;
 
 	/** Validator */
-	@Resource(name = "beanValidator")
-	protected DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/**
 	 * 글 목록을 조회한다. (pageing)

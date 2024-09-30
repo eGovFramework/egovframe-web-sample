@@ -169,7 +169,7 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<directory>${basedir}/target</directory>
-		<finalName>${artifactId}-${version}</finalName>
+		<finalName>${project.artifactId}-${project.version}</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -196,6 +196,14 @@
 						<encoding>UTF-8</encoding>
 					</configuration>
 				</plugin>
+				<plugin>
+		            <groupId>org.apache.maven.plugins</groupId>
+		            <artifactId>maven-resources-plugin</artifactId>
+		            <version>3.3.0</version> <!-- 최신 버전 -->
+		            <configuration>
+		                <encoding>UTF-8</encoding> <!-- 리소스 인코딩 설정 -->
+		            </configuration>
+                 </plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>

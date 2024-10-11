@@ -3,7 +3,7 @@
 ![java](https://img.shields.io/badge/java-007396?style=for-the-badge&logo=JAVA&logoColor=white)
 ![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![Spring](https://img.shields.io/badge/Spring-F2F4F9?style=for-the-badge&logo=spring)
-![maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)  
+![maven](https://img.shields.io/badge/Maven-C71A36?style=for-the-badge&logo=apache-maven&logoColor=white)
 ![workflow](https://github.com/eGovFramework/egovframe-web-sample/actions/workflows/maven.yml/badge.svg)
 
 ※ 본 프로젝트는 Spring 기반의 기본 게시판 예제 소스 코드입니다.
@@ -15,6 +15,7 @@
 | :--------- | :------ |
 | java | 1.8 이상 |
 | maven | 3.8.4 |
+| lombok plugin | 1.18.34 |
 
 ## 참조 화면
 

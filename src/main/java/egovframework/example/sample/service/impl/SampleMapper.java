@@ -17,35 +17,31 @@ package egovframework.example.sample.service.impl;
 
 import java.util.List;
 
-import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
-
 import egovframework.example.sample.service.SampleDefaultVO;
 import egovframework.example.sample.service.SampleVO;
+
+import org.egovframe.rte.psl.dataaccess.mapper.Mapper;
 
 /**
  * sample에 관한 데이터처리 매퍼 클래스
  *
- * @author 표준프레임워크센터
+ * @author  표준프레임워크센터
  * @since 2014.01.24
  * @version 1.0
- * @see
- * 
- *      <pre>
+ * @see <pre>
  *  == 개정이력(Modification Information) ==
  *
  *          수정일          수정자           수정내용
  *  ----------------    ------------    ---------------------------
- *   2014.01.24  표준프레임워크센터          최초 생성
- *   2024.09.21  강동휘          컨트리뷰션 롬복 생성자 기반 종속성 주입
+ *   2014.01.24        표준프레임워크센터          최초 생성
  *
- *      </pre>
+ * </pre>
  */
 @Mapper
 public interface SampleMapper {
 
 	/**
 	 * 글을 등록한다.
-	 * 
 	 * @param vo - 등록할 정보가 담긴 SampleVO
 	 * @return 등록 결과
 	 * @exception Exception
@@ -54,7 +50,6 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 수정한다.
-	 * 
 	 * @param vo - 수정할 정보가 담긴 SampleVO
 	 * @return void형
 	 * @exception Exception
@@ -63,7 +58,6 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 삭제한다.
-	 * 
 	 * @param vo - 삭제할 정보가 담긴 SampleVO
 	 * @return void형
 	 * @exception Exception
@@ -72,7 +66,6 @@ public interface SampleMapper {
 
 	/**
 	 * 글을 조회한다.
-	 * 
 	 * @param vo - 조회할 정보가 담긴 SampleVO
 	 * @return 조회한 글
 	 * @exception Exception
@@ -81,7 +74,6 @@ public interface SampleMapper {
 
 	/**
 	 * 글 목록을 조회한다.
-	 * 
 	 * @param searchVO - 조회할 정보가 담긴 VO
 	 * @return 글 목록
 	 * @exception Exception
@@ -90,7 +82,6 @@ public interface SampleMapper {
 
 	/**
 	 * 글 총 갯수를 조회한다.
-	 * 
 	 * @param searchVO - 조회할 정보가 담긴 VO
 	 * @return 글 총 갯수
 	 * @exception

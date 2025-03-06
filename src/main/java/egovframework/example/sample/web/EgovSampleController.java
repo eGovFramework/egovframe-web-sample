@@ -39,21 +39,17 @@ import lombok.RequiredArgsConstructor;
  * @Class Name : EgovSampleController.java
  * @Description : EgovSample Controller Class
  * @Modification Information
- * 
- *               <pre>
- *   수정일      수정자              수정내용
- *  ---------   ---------   -------------------------------
- *   2009.03.16               최초생성
- *   2024.08.16  이백행          요청 메서드 정리
- *   2024.09.21  강동휘          컨트리뷰션 롬복 생성자 기반 종속성 주입
- *               </pre>
- * 
+ * @
+ * @  수정일      수정자              수정내용
+ * @ ---------   ---------   -------------------------------
+ * @ 2009.03.16           최초생성
+ *
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
  * @version 1.0
  * @see
  *
- *      Copyright (C) by MOPAS All right reserved.
+ *  Copyright (C) by MOPAS All right reserved.
  */
 
 @Controller
@@ -71,15 +67,13 @@ public class EgovSampleController {
 
 	/**
 	 * 글 목록을 조회한다. (pageing)
-	 * 
 	 * @param searchVO - 조회할 정보가 담긴 SampleDefaultVO
 	 * @param model
 	 * @return "egovSampleList"
 	 * @exception Exception
 	 */
 	@GetMapping("/egovSampleList.do")
-	public String selectSampleList(@ModelAttribute("searchVO") SampleDefaultVO searchVO, ModelMap model)
-			throws Exception {
+	public String selectSampleList(@ModelAttribute("searchVO") SampleDefaultVO searchVO, ModelMap model) throws Exception {
 
 		/** EgovPropertyService.sample */
 		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
@@ -107,7 +101,6 @@ public class EgovSampleController {
 
 	/**
 	 * 글 등록 화면을 조회한다.
-	 * 
 	 * @param searchVO - 목록 조회조건 정보가 담긴 VO
 	 * @param model
 	 * @return "egovSampleRegister"
@@ -121,7 +114,6 @@ public class EgovSampleController {
 
 	/**
 	 * 글을 등록한다.
-	 * 
 	 * @param sampleVO - 등록할 정보가 담긴 VO
 	 * @param searchVO - 목록 조회조건 정보가 담긴 VO
 	 * @param status
@@ -129,8 +121,8 @@ public class EgovSampleController {
 	 * @exception Exception
 	 */
 	@PostMapping("/addSample.do")
-	public String addSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO,
-			BindingResult bindingResult, Model model, SessionStatus status) throws Exception {
+	public String addSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status)
+			throws Exception {
 
 		// Server-Side Validation
 		beanValidator.validate(sampleVO, bindingResult);
@@ -142,26 +134,24 @@ public class EgovSampleController {
 
 		sampleService.insertSample(sampleVO);
 		status.setComplete();
-
+		
 		model.addAttribute("searchCondition", sampleVO.getSearchCondition());
 		model.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
 		model.addAttribute("pageIndex", sampleVO.getPageIndex());
-
+		
 		return "redirect:/egovSampleList.do";
 	}
 
 	/**
 	 * 글 수정화면을 조회한다.
-	 * 
-	 * @param id       - 수정할 글 id
+	 * @param id - 수정할 글 id
 	 * @param searchVO - 목록 조회조건 정보가 담긴 VO
 	 * @param model
 	 * @return "egovSampleRegister"
 	 * @exception Exception
 	 */
 	@GetMapping("/updateSampleView.do")
-	public String updateSampleView(@RequestParam("selectedId") String id,
-			@ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model) throws Exception {
+	public String updateSampleView(@RequestParam("selectedId") String id, @ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model) throws Exception {
 		SampleVO sampleVO = new SampleVO();
 		sampleVO.setId(id);
 		// 변수명은 CoC 에 따라 sampleVO
@@ -171,21 +161,18 @@ public class EgovSampleController {
 
 	/**
 	 * 글을 조회한다.
-	 * 
 	 * @param sampleVO - 조회할 정보가 담긴 VO
 	 * @param searchVO - 목록 조회조건 정보가 담긴 VO
 	 * @param status
 	 * @return @ModelAttribute("sampleVO") - 조회한 정보
 	 * @exception Exception
 	 */
-	public SampleVO selectSample(SampleVO sampleVO, @ModelAttribute("searchVO") SampleDefaultVO searchVO)
-			throws Exception {
+	public SampleVO selectSample(SampleVO sampleVO, @ModelAttribute("searchVO") SampleDefaultVO searchVO) throws Exception {
 		return sampleService.selectSample(sampleVO);
 	}
 
 	/**
 	 * 글을 수정한다.
-	 * 
 	 * @param sampleVO - 수정할 정보가 담긴 VO
 	 * @param searchVO - 목록 조회조건 정보가 담긴 VO
 	 * @param status
@@ -193,8 +180,8 @@ public class EgovSampleController {
 	 * @exception Exception
 	 */
 	@PostMapping("/updateSample.do")
-	public String updateSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO,
-			BindingResult bindingResult, Model model, SessionStatus status) throws Exception {
+	public String updateSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status)
+			throws Exception {
 
 		beanValidator.validate(sampleVO, bindingResult);
 
@@ -205,17 +192,16 @@ public class EgovSampleController {
 
 		sampleService.updateSample(sampleVO);
 		status.setComplete();
-
+		
 		model.addAttribute("searchCondition", sampleVO.getSearchCondition());
 		model.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
 		model.addAttribute("pageIndex", sampleVO.getPageIndex());
-
+		
 		return "redirect:/egovSampleList.do";
 	}
 
 	/**
 	 * 글을 삭제한다.
-	 * 
 	 * @param sampleVO - 삭제할 정보가 담긴 VO
 	 * @param searchVO - 목록 조회조건 정보가 담긴 VO
 	 * @param status
@@ -223,15 +209,14 @@ public class EgovSampleController {
 	 * @exception Exception
 	 */
 	@PostMapping("/deleteSample.do")
-	public String deleteSample(SampleVO sampleVO, @ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model,
-			SessionStatus status) throws Exception {
+	public String deleteSample(SampleVO sampleVO, @ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model, SessionStatus status) throws Exception {
 		sampleService.deleteSample(sampleVO);
 		status.setComplete();
-
+		
 		model.addAttribute("searchCondition", sampleVO.getSearchCondition());
 		model.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
 		model.addAttribute("pageIndex", sampleVO.getPageIndex());
-
+		
 		return "redirect:/egovSampleList.do";
 	}
 

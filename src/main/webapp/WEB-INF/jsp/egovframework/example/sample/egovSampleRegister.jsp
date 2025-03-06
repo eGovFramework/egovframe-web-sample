@@ -38,6 +38,7 @@
         /* 글 목록 화면 function */
         function fn_egov_selectList() {
            	document.detailForm.action = "<c:url value='/egovSampleList.do'/>";
+           	document.detailForm.method = 'get';
            	document.detailForm.submit();
         }
         

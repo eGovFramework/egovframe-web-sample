@@ -17,18 +17,16 @@ package egovframework.example.sample.service.impl;
 
 import java.util.List;
 
-import egovframework.example.sample.service.EgovSampleService;
-import egovframework.example.sample.service.SampleDefaultVO;
-import egovframework.example.sample.service.SampleVO;
-
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
-
-import javax.annotation.Resource;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import egovframework.example.sample.service.EgovSampleService;
+import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.example.sample.service.SampleVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Class Name : EgovSampleServiceImpl.java
@@ -47,18 +45,17 @@ import org.springframework.stereotype.Service;
  *  Copyright (C) by MOPAS All right reserved.
  */
 
-@Service("sampleService")
+@Service
+@RequiredArgsConstructor
 public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements EgovSampleService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleServiceImpl.class);
 
 	/** SampleDAO */
-	@Resource(name="sampleMapper")
-	private SampleMapper sampleDAO;
+	private final SampleMapper sampleDAO;
 
 	/** ID Generation */
-	@Resource(name = "egovIdGnrService")
-	private EgovIdGnrService egovIdGnrService;
+	private final EgovIdGnrService egovIdGnrService;
 
 	/**
 	 * 글을 등록한다.

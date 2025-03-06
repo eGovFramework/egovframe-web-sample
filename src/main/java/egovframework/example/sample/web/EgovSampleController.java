@@ -17,25 +17,23 @@ package egovframework.example.sample.web;
 
 import java.util.List;
 
-import egovframework.example.sample.service.EgovSampleService;
-import egovframework.example.sample.service.SampleDefaultVO;
-import egovframework.example.sample.service.SampleVO;
-
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
-
-import javax.annotation.Resource;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springmodules.validation.commons.DefaultBeanValidator;
+
+import egovframework.example.sample.service.EgovSampleService;
+import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.example.sample.service.SampleVO;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @Class Name : EgovSampleController.java
@@ -55,19 +53,17 @@ import org.springmodules.validation.commons.DefaultBeanValidator;
  */
 
 @Controller
+@RequiredArgsConstructor
 public class EgovSampleController {
 
 	/** EgovSampleService */
-	@Resource(name = "sampleService")
-	private EgovSampleService sampleService;
+	private final EgovSampleService sampleService;
 
 	/** EgovPropertyService */
-	@Resource(name = "propertiesService")
-	protected EgovPropertyService propertiesService;
+	private final EgovPropertyService propertiesService;
 
 	/** Validator */
-	@Resource(name = "beanValidator")
-	protected DefaultBeanValidator beanValidator;
+	private final DefaultBeanValidator beanValidator;
 
 	/**
 	 * 글 목록을 조회한다. (pageing)
@@ -76,7 +72,7 @@ public class EgovSampleController {
 	 * @return "egovSampleList"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/egovSampleList.do")
+	@GetMapping("/egovSampleList.do")
 	public String selectSampleList(@ModelAttribute("searchVO") SampleDefaultVO searchVO, ModelMap model) throws Exception {
 
 		/** EgovPropertyService.sample */
@@ -110,7 +106,7 @@ public class EgovSampleController {
 	 * @return "egovSampleRegister"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/addSample.do", method = RequestMethod.GET)
+	@GetMapping("/addSample.do")
 	public String addSampleView(@ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model) throws Exception {
 		model.addAttribute("sampleVO", new SampleVO());
 		return "sample/egovSampleRegister";
@@ -124,7 +120,7 @@ public class EgovSampleController {
 	 * @return "forward:/egovSampleList.do"
 	 * @exception Exception
 	 */
-	@RequestMapping(value = "/addSample.do", method = RequestMethod.POST)
+	@PostMapping("/addSample.do")
 	public String addSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
 
@@ -138,7 +134,12 @@ public class EgovSampleController {
 
 		sampleService.insertSample(sampleVO);
 		status.setComplete();
-		return "forward:/egovSampleList.do";
+		
+		model.addAttribute("searchCondition", sampleVO.getSearchCondition());
+		model.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
+		model.addAttribute("pageIndex", sampleVO.getPageIndex());
+		
+		return "redirect:/egovSampleList.do";
 	}
 
 	/**
@@ -149,7 +150,7 @@ public class EgovSampleController {
 	 * @return "egovSampleRegister"
 	 * @exception Exception
 	 */
-	@RequestMapping("/updateSampleView.do")
+	@GetMapping("/updateSampleView.do")
 	public String updateSampleView(@RequestParam("selectedId") String id, @ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model) throws Exception {
 		SampleVO sampleVO = new SampleVO();
 		sampleVO.setId(id);
@@ -178,7 +179,7 @@ public class EgovSampleController {
 	 * @return "forward:/egovSampleList.do"
 	 * @exception Exception
 	 */
-	@RequestMapping("/updateSample.do")
+	@PostMapping("/updateSample.do")
 	public String updateSample(@ModelAttribute("searchVO") SampleDefaultVO searchVO, SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status)
 			throws Exception {
 
@@ -191,7 +192,12 @@ public class EgovSampleController {
 
 		sampleService.updateSample(sampleVO);
 		status.setComplete();
-		return "forward:/egovSampleList.do";
+		
+		model.addAttribute("searchCondition", sampleVO.getSearchCondition());
+		model.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
+		model.addAttribute("pageIndex", sampleVO.getPageIndex());
+		
+		return "redirect:/egovSampleList.do";
 	}
 
 	/**
@@ -202,11 +208,16 @@ public class EgovSampleController {
 	 * @return "forward:/egovSampleList.do"
 	 * @exception Exception
 	 */
-	@RequestMapping("/deleteSample.do")
-	public String deleteSample(SampleVO sampleVO, @ModelAttribute("searchVO") SampleDefaultVO searchVO, SessionStatus status) throws Exception {
+	@PostMapping("/deleteSample.do")
+	public String deleteSample(SampleVO sampleVO, @ModelAttribute("searchVO") SampleDefaultVO searchVO, Model model, SessionStatus status) throws Exception {
 		sampleService.deleteSample(sampleVO);
 		status.setComplete();
-		return "forward:/egovSampleList.do";
+		
+		model.addAttribute("searchCondition", sampleVO.getSearchCondition());
+		model.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
+		model.addAttribute("pageIndex", sampleVO.getPageIndex());
+		
+		return "redirect:/egovSampleList.do";
 	}
 
 }

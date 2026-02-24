@@ -21,16 +21,14 @@
 
 ### 목록 화면
 
-![web1]()
+![list](https://github.com/user-attachments/assets/6814f4df-6266-4f22-8cde-01acb308c022)
 
 ### 게시글 등록 화면
 
-![web2]()
+![regist](https://github.com/user-attachments/assets/b58cd205-131b-409f-9de8-62a83bd8029c)
 
 ## 프로젝트 실행
 
 1. eclipse 하단의 Servers 탭을 클릭하고, 마우스 우클릭하여 **New > Server** 를 선택하여 서버를 설치한다.
 
 2. 실행할 프로젝트를 마우스 우클릭하고 **Run As > Run on Server** 를 선택한다.
-
-3. 자세한 사항은 [프로젝트 설치 및 실행](http://www.egovframe.go.kr/docs/5.0/egovframe-development/install-guide/developer-environment-install-guide/) 문서를 확인한다.

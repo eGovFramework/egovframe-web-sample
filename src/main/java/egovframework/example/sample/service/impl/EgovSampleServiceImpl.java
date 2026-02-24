@@ -24,9 +24,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import egovframework.example.sample.service.EgovSampleService;
-import egovframework.example.sample.service.SampleDefaultVO;
 import egovframework.example.sample.service.SampleVO;
-import lombok.RequiredArgsConstructor;
+import jakarta.annotation.Resource;
 
 /**
  * @Class Name : EgovSampleServiceImpl.java
@@ -45,17 +44,18 @@ import lombok.RequiredArgsConstructor;
  *  Copyright (C) by MOPAS All right reserved.
  */
 
-@Service
-@RequiredArgsConstructor
+@Service("sampleService")
 public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements EgovSampleService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleServiceImpl.class);
 
-	/** SampleDAO */
-	private final SampleMapper sampleDAO;
+	/** SampleMapper */
+	@Resource(name = "sampleMapper")
+	private SampleMapper sampleMapper;
 
 	/** ID Generation */
-	private final EgovIdGnrService egovIdGnrService;
+	@Resource(name = "egovIdGnrService")
+	private EgovIdGnrService egovIdGnrService;
 
 	/**
 	 * 글을 등록한다.
@@ -64,7 +64,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * @exception Exception
 	 */
 	@Override
-	public String insertSample(SampleVO vo) throws Exception {
+	public void insertSample(SampleVO vo) throws Exception {
 		LOGGER.debug(vo.toString());
 
 		/** ID Generation Service */
@@ -72,8 +72,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 		vo.setId(id);
 		LOGGER.debug(vo.toString());
 
-		sampleDAO.insertSample(vo);
-		return id;
+		sampleMapper.insertSample(vo);
 	}
 
 	/**
@@ -84,7 +83,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public void updateSample(SampleVO vo) throws Exception {
-		sampleDAO.updateSample(vo);
+		sampleMapper.updateSample(vo);
 	}
 
 	/**
@@ -95,7 +94,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public void deleteSample(SampleVO vo) throws Exception {
-		sampleDAO.deleteSample(vo);
+		sampleMapper.deleteSample(vo);
 	}
 
 	/**
@@ -106,7 +105,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public SampleVO selectSample(SampleVO vo) throws Exception {
-		SampleVO resultVO = sampleDAO.selectSample(vo);
+		SampleVO resultVO = sampleMapper.selectSample(vo);
 		if (resultVO == null)
 			throw processException("info.nodata.msg");
 		return resultVO;
@@ -114,24 +113,24 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 
 	/**
 	 * 글 목록을 조회한다.
-	 * @param searchVO - 조회할 정보가 담긴 VO
+	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 목록
 	 * @exception Exception
 	 */
 	@Override
-	public List<?> selectSampleList(SampleDefaultVO searchVO) throws Exception {
-		return sampleDAO.selectSampleList(searchVO);
+	public List<?> selectSampleList(SampleVO vo) throws Exception {
+		return sampleMapper.selectSampleList(vo);
 	}
 
 	/**
 	 * 글 총 갯수를 조회한다.
-	 * @param searchVO - 조회할 정보가 담긴 VO
+	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 총 갯수
 	 * @exception
 	 */
 	@Override
-	public int selectSampleListTotCnt(SampleDefaultVO searchVO) {
-		return sampleDAO.selectSampleListTotCnt(searchVO);
+	public int selectSampleListTotCnt(SampleVO vo) {
+		return sampleMapper.selectSampleListTotCnt(vo);
 	}
 
 }

@@ -1,141 +1,171 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="c"      uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form"   uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="ui"     uri="http://egovframework.gov/ctl/ui"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="ui" uri="http://egovframework.gov/ctl/ui"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%
-  /**
-  * @Class Name : egovSampleList.jsp
-  * @Description : Sample List 화면
-  * @Modification Information
-  *
-  *   수정일         수정자                   수정내용
-  *  -------    --------    ---------------------------
-  *  2009.02.01            최초 생성
-  *
-  * author 실행환경 개발팀
-  * since 2009.02.01
-  *
-  * Copyright (C) 2009 by MOPAS  All right reserved.
-  */
+/**
+* @Class Name : egovSampleList.jsp
+* @Description : Sample List 화면
+* @Modification Information
+*
+*   수정일         수정자                   수정내용
+*  -------    --------    ---------------------------
+*  2009.02.01				최초 생성
+*  2025.07.01	유지보수	KRDS 디자인 적용	
+*
+* author 실행환경 개발팀
+* since 2009.02.01
+*
+* Copyright (C) 2009 by MOPAS  All right reserved.
+*/
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="ko" xml:lang="ko">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title><spring:message code="title.sample" /></title>
-    <link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframework/sample.css'/>"/>
-    <script type="text/javaScript" language="javascript" defer="defer">
-        <!--
-        /* 글 수정 화면 function */
-        function fn_egov_select(id) {
-        	document.listForm.selectedId.value = id;
-           	document.listForm.action = "<c:url value='/updateSampleView.do'/>";
-           	document.listForm.submit();
-        }
-        
-        /* 글 등록 화면 function */
-        function fn_egov_addView() {
-           	document.listForm.action = "<c:url value='/addSample.do'/>";
-           	document.listForm.submit();
-        }
-        
-        /* 글 목록 화면 function */
-        function fn_egov_selectList() {
-        	document.listForm.action = "<c:url value='/egovSampleList.do'/>";
-           	document.listForm.submit();
-        }
-        
-        /* pagination 페이지 링크 function */
-        function fn_egov_link_page(pageNo){
-        	document.listForm.pageIndex.value = pageNo;
-        	document.listForm.action = "<c:url value='/egovSampleList.do'/>";
-           	document.listForm.submit();
-        }
-        
-        //-->
-    </script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title><spring:message code="title.sample" /></title>
+
+	<!-- KRDS CSS -->
+	<link type="text/css" rel="stylesheet" href="<c:url value='/css/component/output.css'/>" />
+	<link type="text/css" rel="stylesheet" href="<c:url value='/css/egovframe.css'/>" />
+	<script type="text/javaScript" language="javascript" src="<c:url value='/js/jquery.min.js'/>" defer="defer"></script>
+	<script type="text/javaScript" language="javascript" src="<c:url value='/js/egovframework/common.js'/>" defer="defer"></script>
+
+	<script type="text/javaScript" language="javascript" defer="defer">
+	<!--
+		/* 글 수정 화면 function */
+		function fn_egov_select(id) {
+			document.listForm.id.value = id;
+			document.listForm.action = "<c:url value='/updateSampleView.do'/>";
+			document.listForm.submit();
+		}
+	
+		/* 글 등록 화면 function */
+		function fn_egov_addView() {
+			document.listForm.action = "<c:url value='/addSampleView.do'/>";
+			document.listForm.submit();
+		}
+
+		/* 글 목록 화면 function */
+		function fn_egov_selectList() {
+			if(document.listForm.searchKeyword.value == '') {
+				alert("<spring:message code='search.error'/>");
+				return false;
+			}
+			document.listForm.action = "<c:url value='/egovSampleList.do'/>";
+			document.listForm.method = "get";
+			document.listForm.submit();
+		}
+
+		/* pagination 페이지 링크 function */
+		function fn_egov_link_page(pageNo) {
+			document.listForm.pageIndex.value = pageNo;
+			document.listForm.action = "<c:url value='/egovSampleList.do'/>";
+			document.listForm.method = "get";
+			document.listForm.submit();
+		}
+	//-->
+	</script>
 </head>
 
-<body style="text-align:center; margin:0 auto; display:inline; padding-top:100px;">
-    <form:form modelAttribute="searchVO" id="listForm" name="listForm" method="get">
-        <input type="hidden" name="selectedId" />
-        <div id="content_pop">
-        	<!-- 타이틀 -->
-        	<div id="title">
-        		<ul>
-        			<li><img src="<c:url value='/images/egovframework/example/title_dot.gif'/>" alt=""/><spring:message code="list.sample" /></li>
-        		</ul>
-        	</div>
-        	<!-- // 타이틀 -->
-        	<div id="search">
-        		<ul>
-        			<li>
-        			    <label for="searchCondition" style="visibility:hidden;"><spring:message code="search.choose" /></label>
-        				<form:select path="searchCondition" cssClass="use">
-        					<form:option value="1" label="Name" />
-        					<form:option value="0" label="ID" />
-        				</form:select>
-        			</li>
-        			<li><label for="searchKeyword" style="visibility:hidden;display:none;"><spring:message code="search.keyword" /></label>
-                        <form:input path="searchKeyword" cssClass="txt"/>
-                    </li>
-        			<li>
-        	            <span class="btn_blue_l">
-        	                <a href="javascript:fn_egov_selectList();"><spring:message code="button.search" /></a>
-        	                <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
-        	            </span>
-        	        </li>
-                </ul>
-        	</div>
-        	<!-- List -->
-        	<div id="table">
-        		<table width="100%" border="0" cellpadding="0" cellspacing="0" summary="카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블">
-        			<caption style="visibility:hidden">카테고리ID, 케테고리명, 사용여부, Description, 등록자 표시하는 테이블</caption>
-        			<colgroup>
-        				<col width="40"/>
-        				<col width="100"/>
-        				<col width="150"/>
-        				<col width="80"/>
-        				<col width="?"/>
-        				<col width="60"/>
-        			</colgroup>
-        			<tr>
-        				<th align="center">No</th>
-        				<th align="center"><spring:message code="title.sample.id" /></th>
-        				<th align="center"><spring:message code="title.sample.name" /></th>
-        				<th align="center"><spring:message code="title.sample.useYn" /></th>
-        				<th align="center"><spring:message code="title.sample.description" /></th>
-        				<th align="center"><spring:message code="title.sample.regUser" /></th>
-        			</tr>
-        			<c:forEach var="result" items="${resultList}" varStatus="status">
-            			<tr>
-            				<td align="center" class="listtd"><c:out value="${paginationInfo.totalRecordCount+1 - ((searchVO.pageIndex-1) * searchVO.pageSize + status.count)}"/></td>
-            				<td align="center" class="listtd"><a href="javascript:fn_egov_select('<c:out value="${result.id}"/>')"><c:out value="${result.id}"/></a></td>
-            				<td align="left" class="listtd"><c:out value="${result.name}"/>&nbsp;</td>
-            				<td align="center" class="listtd"><c:out value="${result.useYn}"/>&nbsp;</td>
-            				<td align="center" class="listtd"><c:out value="${result.description}"/>&nbsp;</td>
-            				<td align="center" class="listtd"><c:out value="${result.regUser}"/>&nbsp;</td>
-            			</tr>
-        			</c:forEach>
-        		</table>
-        	</div>
-        	<!-- /List -->
-        	<div id="paging">
-        		<ui:pagination paginationInfo = "${paginationInfo}" type="image" jsFunction="fn_egov_link_page" />
-        		<form:hidden path="pageIndex" />
-        	</div>
-        	<div id="sysbtn">
-        	  <ul>
-        	      <li>
-        	          <span class="btn_blue_l">
-        	              <a href="javascript:fn_egov_addView();"><spring:message code="button.create" /></a>
-                          <img src="<c:url value='/images/egovframework/example/btn_bg_r.gif'/>" style="margin-left:6px;" alt=""/>
-                      </span>
-                  </li>
-              </ul>
-        	</div>
-        </div>
-    </form:form>
+<body>
+<div id="container" class="inner">
+
+	<!-- 타이틀 -->
+	<h2 class="heading-large"><spring:message code="list.sample" /></h2>
+	<!-- // 타이틀 -->
+	
+	<div id="content_pop">
+		<form:form modelAttribute="sampleVO" id="listForm" name="listForm" method="post">
+			<input type="hidden" id="id" name="id" />
+			<input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+	
+			<!-- Search Form -->
+			<div class="form-group">
+				<div class="search-wrap">
+					<div class="search-body">
+						<div class="form-conts searchOption">
+							<select id="searchCondition" name="searchCondition" class="krds-form-select medium" title="<spring:message code='search.choose'/>">
+								<option value="1" <c:if test ="${not empty sampleVO.searchCondition and sampleVO.searchCondition eq 1}">selected="selected"</c:if>>Name</option>
+								<option value="0" <c:if test ="${not empty sampleVO.searchCondition and sampleVO.searchCondition eq 0}">selected="selected"</c:if>>ID</option>
+							</select>
+						</div>
+						<div class="form-conts btn-ico-wrap searchKeyword">
+							<input type="text" id="searchKeyword" name="searchKeyword" value="${sampleVO.searchKeyword}" class="krds-input medium" placeholder="<spring:message code='search.keyword'/>">
+							<button type="button" class="krds-btn medium icon" onclick="fn_egov_selectList()">
+								<span class="sr-only"><spring:message code="button.search" /></span>
+								<i class="svg-icon ico-sch"></i>
+							</button>
+						</div>
+					</div>
+					<div class="page-btn-wrap">
+						<button type="button" class="krds-btn medium" onclick="fn_egov_addView()"><spring:message code="button.create" /></button>
+					</div>
+				</div>
+			</div>
+		</form:form>
+	
+		<!-- List -->
+		<div class="krds-table-wrap">
+			<table class="tbl col data">
+				<colgroup>
+					<col style="width: 10%;">
+					<col style="width: 20%;">
+					<col style="width: 20%;">
+					<col style="width: 30%;">
+					<col style="width: 10%;">
+					<col style="width: 10%;">
+				</colgroup>
+				<thead>
+					<tr>
+						<th scope="col" class="text-center">No</th>
+						<th scope="col" class="text-center"><spring:message code="title.sample.id" /></th>
+						<th scope="col" class="text-center"><spring:message code="title.sample.name" /></th>
+						<th scope="col" class="text-center"><spring:message code="title.sample.description" /></th>
+						<th scope="col" class="text-center"><spring:message code="title.sample.useYn" /></th>
+						<th scope="col" class="text-center"><spring:message code="title.sample.regUser" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:choose>
+						<c:when test="${not empty resultList}">
+							<c:forEach var="result" items="${resultList}" varStatus="status">
+								<tr>
+									<td class="text-center"><c:out value="${paginationInfo.totalRecordCount+1 - ((sampleVO.pageIndex-1) * sampleVO.pageSize + status.count)}"/></td>
+									<td class="text-center"><a href="javascript:fn_egov_select('<c:out value="${result.id}"/>')"><c:out value="${result.id}" /></a></td>
+									<td class="text-center"><c:out value="${result.name}"/></td>
+									<td class="text-center"><c:out value="${result.description}"/></td>
+									<td class="text-center">
+										<c:choose>
+											<c:when test="${result.useYn == 'Y'}"><spring:message code="input.yes" /></c:when>
+											<c:when test="${result.useYn == 'N'}"><spring:message code="input.no" /></c:when>
+											<c:otherwise>-</c:otherwise>
+										</c:choose>
+									</td>
+									<td class="text-center"><c:out value="${result.regUser}"/></td>
+								</tr>
+							</c:forEach>
+						</c:when>
+						<c:otherwise>
+							<tr>
+								<td class="text-center" colspan="6"><spring:message code="info.nodata.msg" /></td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
+				</tbody>
+			</table>
+		</div>
+		<!-- // List -->
+
+		<!-- Pagination -->
+		<div id="paging" class="krds-pagination w-page">
+			<ui:pagination paginationInfo="${paginationInfo}" type="krds" jsFunction="fn_egov_link_page" />
+		</div>
+
+	</div>
+
+</div>
+
 </body>
 </html>

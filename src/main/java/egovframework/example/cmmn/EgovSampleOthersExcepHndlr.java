@@ -16,7 +16,6 @@
 package egovframework.example.cmmn;
 
 import org.egovframe.rte.fdl.cmmn.exception.handler.ExceptionHandler;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

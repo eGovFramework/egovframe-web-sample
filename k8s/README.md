@@ -4,13 +4,13 @@
 
 ---
 ### minikube 내 도커 이미지 로드
-- 대상 이미지 --> egovframe-web-sample:1.0.0
+- 대상 이미지 --> egovframe-web:5.0.0
   - 대상 이미지 확인 명령어 ``` docker image ls ```
 - minikube 내 이미지 로드
-  - ``` minikube image load egovframe-web-sample:1.0.0 ```
+  - ``` minikube image load egovframe-web:5.0.0 ```
 
 ### deployment.yaml
-- web-sample 이미지(egovframe-web-sample:1.0.0)를 pod로 배포하기 위한 설정파일
+- web-sample 이미지(egovframe-web:5.0.0)를 pod로 배포하기 위한 설정파일
 - 위에서 로드한 이미지를 이용
 
 ### service.yaml
@@ -40,5 +40,5 @@
 ### 참고사항
 - Apple Silicon Mac에서는 minikube + docker driver 이용 시 NodePort로 연결이 안되는 현상 발생
   - minikube에서 제공하는 명령어를 통해서 로컬 tunnel을 구성 
-    - ```minikube service egovframe-web-sample```
+    - ```minikube service egovframe-web```
   - 기타 port-forwarding을 구성하는 방법 등

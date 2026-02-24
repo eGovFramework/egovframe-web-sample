@@ -22,7 +22,8 @@ import java.util.Locale;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.support.WebBindingInitializer;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.InitBinder;
 
 /**
  * @Class Name : EgovBindingInitializer.java
@@ -40,7 +41,8 @@ import org.springframework.web.bind.support.WebBindingInitializer;
  *
  *  Copyright (C) by MOPAS All right reserved.
  */
-public class EgovBindingInitializer implements WebBindingInitializer {
+@ControllerAdvice
+public class EgovBindingInitializer {
 
 	/**
 	* initBinder
@@ -48,7 +50,7 @@ public class EgovBindingInitializer implements WebBindingInitializer {
 	* @param request
 	* @see 개발프레임웍크 실행환경 개발팀
 	*/
-	@Override
+	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 		dateFormat.setLenient(false);

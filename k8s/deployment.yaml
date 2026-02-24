@@ -1,22 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: egovframe-web-sample
+  name: egovframe-web
   labels:
-    app: egovframe-web-sample
+    app: egovframe-web
 spec:
   selector:
     matchLabels:
-      app: egovframe-web-sample
+      app: egovframe-web
   template:
     metadata:
       labels:
-        app: egovframe-web-sample
+        app: egovframe-web
     spec:
       containers:
-        - name: egovframe-web-sample
-          image: egovframe-web-sample:1.0.0
+        - name: egovframe-web
+          image: egovframe-web:5.0.0
           ports:
             - containerPort: 8080
-
-      

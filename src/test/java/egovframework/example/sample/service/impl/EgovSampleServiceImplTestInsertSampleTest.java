@@ -1,7 +1,5 @@
 package egovframework.example.sample.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -67,7 +65,7 @@ class EgovSampleServiceImplTestInsertSampleTest extends EgovTestAbstractSpring {
 		sampleVO.setRegUser("test");
 
 		// when
-		final String resultId = egovSampleService.insertSample(sampleVO);
+		egovSampleService.insertSample(sampleVO);
 
 		// then
 		final SampleVO resultSampleVO = egovSampleService.selectSample(sampleVO);
@@ -82,11 +80,7 @@ class EgovSampleServiceImplTestInsertSampleTest extends EgovTestAbstractSpring {
 
 			log.debug("resultSampleVO={}", resultSampleVO);
 			log.debug("getId={}", resultSampleVO.getId());
-
-			log.debug("resultId={}", resultId);
 		}
-
-		assertEquals(resultId, resultSampleVO.getId(), "글을 등록한다.");
 	}
 
 }

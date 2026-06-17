@@ -1,0 +1,25 @@
+## 변경 사유
+
+기존 `insertSample` 테스트만 존재하며, `updateSample`, `deleteSample`, `selectSampleList`, `selectSampleListTotCnt` 메서드에 대한 테스트가 없었다. 서비스 계층의 주요 CRUD 동작을 검증하는 테스트를 추가한다.
+
+## 변경 내용
+
+- `EgovSampleServiceImplTestUpdateSampleTest`: 글 수정 후 변경 값 검증
+- `EgovSampleServiceImplTestDeleteSampleTest`: 글 삭제 후 조회 시 예외 발생 검증
+- `EgovSampleServiceImplTestSelectSampleListTest`: 목록 조회 및 전체 건수 검증
+
+기존 테스트와 동일한 패턴 적용: `@ContextConfiguration`, `@Transactional`, HSQL 임베디드 DB, JUnit 5 (Jupiter).
+
+## 테스트 방법 / 영향 범위
+
+- JUnit 5 (junit-jupiter-api), Spring 통합 테스트
+- HSQL 임베디드 DB 사용 (외부 DB 불필요)
+- `@Transactional` 적용으로 각 테스트 후 롤백, DB 상태에 영향 없음
+- 기존 운영 코드 변경 없음
+
+## 체크리스트
+
+- [x] 단일 주제만 다룸 (다른 변경 없음)
+- [x] 기존 동작에 영향 없음
+- [x] JUnit 5 (Jupiter) 사용
+- [x] 의존성 추가 없음 (기존 junit-jupiter-api, spring-test 활용)

@@ -1,0 +1,8 @@
+fix: Dockerfile 베이스 이미지 및 WAR 경로 수정
+
+tomcat:8.5-jre8(단종) → tomcat:10.1-jdk17-temurin으로 교체하고,
+COPY 대상 파일명을 pom.xml finalName 기준 실제 빌드 산출물인
+egovframe-web-5.0.0.war로 정정한다.
+
+기존 web-example-1.0.0.war 경로는 존재하지 않아 이미지 빌드가
+실패하던 문제를 해결한다.

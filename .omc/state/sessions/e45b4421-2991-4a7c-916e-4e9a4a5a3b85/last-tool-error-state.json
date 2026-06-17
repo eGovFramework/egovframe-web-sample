@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"docker compose -f /Users/m/Documents/IdeaProjects/21.egov/contribution/source/egovframe-msa-edu/docker-compose/app/docker-compose.yml config --quiet 2>&1 && echo \\\"app/docker-compose.yml: ...",
+  "error": "Exit code 1\napp/docker-compose.yml: OK\nservice \"portalservice\" depends on undefined service \"config\": invalid compose project",
+  "timestamp": "2026-06-04T17:18:14.685Z",
+  "retry_count": 1
+}

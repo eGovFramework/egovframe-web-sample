@@ -76,9 +76,9 @@ public interface EgovSampleService {
 	List<?> selectSampleList(SampleVO vo) throws Exception;
 
 	/**
-	 * 글 총 갯수를 조회한다.
+	 * 글 총 개수를 조회한다.
 	 * @param searchVO - 조회할 정보가 담긴 VO
-	 * @return 글 총 갯수
+	 * @return 글 총 개수
 	 * @exception
 	 */
 	int selectSampleListTotCnt(SampleVO vo);

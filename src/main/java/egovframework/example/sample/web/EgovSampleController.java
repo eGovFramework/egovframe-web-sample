@@ -43,6 +43,7 @@ import lombok.extern.slf4j.Slf4j;
  * @  수정일      수정자              수정내용
  * @ ---------   ---------   -------------------------------
  * @ 2009.03.16           최초생성
+ *   2026.07.20  이백행          [2026년 컨트리뷰션] 불필요한 예외 제거
  *
  * @author 개발프레임웍크 실행환경 개발팀
  * @since 2009. 03.16
@@ -69,10 +70,9 @@ public class EgovSampleController {
 	 * @param sampleVO - 조회할 정보가 담긴 SampleDefaultVO
 	 * @param model
 	 * @return "egovSampleList"
-	 * @exception Exception
 	 */
 	@GetMapping("/egovSampleList.do")
-	public String selectSampleList(@ModelAttribute("sampleVO") SampleVO sampleVO, ModelMap model) throws Exception {
+	public String selectSampleList(@ModelAttribute("sampleVO") SampleVO sampleVO, ModelMap model) {
 
 		/** EgovPropertyService.sample */
 		sampleVO.setPageUnit(propertiesService.getInt("pageUnit"));
@@ -107,10 +107,9 @@ public class EgovSampleController {
 	 * @param sampleVO - 목록 조회조건 정보가 담긴 VO
 	 * @param model
 	 * @return "egovSampleRegister"
-	 * @exception Exception
 	 */
 	@PostMapping("/addSampleView.do")
-	public String addSampleView( @ModelAttribute("sampleVO") SampleVO sampleVO, Model model) throws Exception {
+	public String addSampleView( @ModelAttribute("sampleVO") SampleVO sampleVO, Model model) {
 
 		model.addAttribute("sampleVO", sampleVO);
 
@@ -163,11 +162,10 @@ public class EgovSampleController {
 	 * @param sampleVO - 수정할 정보가 담긴 VO
 	 * @param status
 	 * @return "forward:/egovSampleList.do"
-	 * @exception Exception
 	 */
 	@PostMapping("/updateSample.do")
 	public String updateSample(@Valid @ModelAttribute("sampleVO") SampleVO sampleVO, BindingResult bindingResult,
-			Model model, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+			Model model, RedirectAttributes redirectAttributes, SessionStatus status) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("sampleVO", sampleVO);
@@ -189,10 +187,9 @@ public class EgovSampleController {
 	 * @param sampleVO - 삭제할 정보가 담긴 VO
 	 * @param status
 	 * @return "forward:/egovSampleList.do"
-	 * @exception Exception
 	 */
 	@PostMapping("/deleteSample.do")
-	public String deleteSample(@ModelAttribute("sampleVO") SampleVO sampleVO, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+	public String deleteSample(@ModelAttribute("sampleVO") SampleVO sampleVO, RedirectAttributes redirectAttributes, SessionStatus status) {
 
 		sampleService.deleteSample(sampleVO);
 		status.setComplete();

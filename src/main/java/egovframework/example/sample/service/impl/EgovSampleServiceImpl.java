@@ -123,9 +123,9 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	}
 
 	/**
-	 * 글 총 갯수를 조회한다.
+	 * 글 총 개수를 조회한다.
 	 * @param vo - 조회할 정보가 담긴 VO
-	 * @return 글 총 갯수
+	 * @return 글 총 개수
 	 * @exception
 	 */
 	@Override

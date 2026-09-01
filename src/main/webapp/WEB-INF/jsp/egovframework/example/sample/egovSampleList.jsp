@@ -79,7 +79,7 @@
 	<div id="content_pop">
 		<form:form modelAttribute="sampleVO" id="listForm" name="listForm" method="post">
 			<input type="hidden" id="id" name="id" />
-			<input type="hidden" id="pageIndex" name="pageIndex" value="1" />
+			<input type="hidden" id="pageIndex" name="pageIndex" value="${sampleVO.pageIndex}" />
 	
 			<!-- Search Form -->
 			<div class="form-group">

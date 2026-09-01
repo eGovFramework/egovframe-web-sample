@@ -8,6 +8,6 @@
 </head>
 
 <body>
-    <spring:message code='fail.common.sql' />
+    <spring:message code='fail.common.msg' />
 </body>
 </html>

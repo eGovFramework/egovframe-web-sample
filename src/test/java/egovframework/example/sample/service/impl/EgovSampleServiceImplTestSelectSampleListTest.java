@@ -1,10 +1,10 @@
 package egovframework.example.sample.service.impl;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,7 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleVO;
 import egovframework.test.EgovTestAbstractSpring;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -39,7 +38,6 @@ import lombok.extern.slf4j.Slf4j;
 				@Filter(type = FilterType.ASSIGNABLE_TYPE, classes = { EgovSampleServiceImpl.class,
 						SampleMapper.class, }) })
 
-@RequiredArgsConstructor
 @Slf4j
 class EgovSampleServiceImplTestSelectSampleListTest extends EgovTestAbstractSpring {
 
@@ -47,10 +45,10 @@ class EgovSampleServiceImplTestSelectSampleListTest extends EgovTestAbstractSpri
 	 *
 	 */
 	@Autowired
-	private EgovSampleService egovSampleService;
+	EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
 		final SampleVO sampleVO1 = new SampleVO();
 		sampleVO1.setName("test 목록조회1");
@@ -80,9 +78,16 @@ class EgovSampleServiceImplTestSelectSampleListTest extends EgovTestAbstractSpri
 			log.debug("totCnt={}", totCnt);
 		}
 
-		assertNotNull(resultList, "목록 결과가 null이 아니어야 한다.");
-		assertTrue(resultList.size() >= 2, "등록한 건수 이상이어야 한다.");
-		assertTrue(totCnt >= 2, "전체 건수가 등록한 건수 이상이어야 한다.");
+//		assertNotNull(resultList, "목록 결과가 null이 아니어야 한다.");
+//		assertTrue(resultList.size() >= 2, "등록한 건수 이상이어야 한다.");
+//		assertTrue(totCnt >= 2, "전체 건수가 등록한 건수 이상이어야 한다.");
+
+//		assertThat(resultList).as("목록 결과가 null이 아니어야 한다.").isNotNull();
+//		assertThat(resultList.size()).as("등록한 건수 이상이어야 한다.").isGreaterThanOrEqualTo(2);
+//		assertThat(totCnt).as("전체 건수가 등록한 건수 이상이어야 한다.").isGreaterThanOrEqualTo(2);
+
+		assertThat(resultList).as("목록 결과가 null이 아니고 등록한 건수 이상이어야 한다.").isNotNull().hasSizeGreaterThanOrEqualTo(2);
+		assertThat(totCnt).as("전체 건수가 등록한 건수 이상이어야 한다.").isGreaterThanOrEqualTo(2);
 	}
 
 }

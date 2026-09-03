@@ -124,7 +124,8 @@ public class EgovSampleController {
 	 * @exception Exception
 	 */
 	@PostMapping("/addSample.do")
-	public String addSample(@Valid @ModelAttribute("sampleVO") SampleVO sampleVO, BindingResult bindingResult, Model model, SessionStatus status) throws Exception {
+	public String addSample(@Valid @ModelAttribute("sampleVO") SampleVO sampleVO, BindingResult bindingResult,
+			Model model, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("sampleVO", sampleVO);
@@ -133,6 +134,10 @@ public class EgovSampleController {
 
 		sampleService.insertSample(sampleVO);
 		status.setComplete();
+
+		redirectAttributes.addAttribute("searchCondition", sampleVO.getSearchCondition());
+		redirectAttributes.addAttribute("searchKeyword", sampleVO.getSearchKeyword());
+		redirectAttributes.addAttribute("pageIndex", sampleVO.getPageIndex());
 
 		return "redirect:/egovSampleList.do";
 	}

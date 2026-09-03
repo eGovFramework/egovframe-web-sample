@@ -18,6 +18,8 @@ package egovframework.example.sample.service.impl;
 import java.util.List;
 
 import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
+import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,14 +64,18 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글을 등록한다.
 	 * @param vo - 등록할 정보가 담긴 SampleVO
 	 * @return 등록 결과
-	 * @exception Exception
 	 */
 	@Override
-	public void insertSample(SampleVO vo) throws Exception {
+	public void insertSample(SampleVO vo) {
 		LOGGER.debug(vo.toString());
 
 		/** ID Generation Service */
-		String id = egovIdGnrService.getNextStringId();
+		String id;
+		try {
+			id = egovIdGnrService.getNextStringId();
+		} catch (FdlException e) {
+			throw new BaseRuntimeException(e);
+		}
 		vo.setId(id);
 		LOGGER.debug(vo.toString());
 
@@ -100,13 +106,15 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 * 글을 조회한다.
 	 * @param vo - 조회할 정보가 담긴 SampleVO
 	 * @return 조회한 글
+	 * @exception BaseRuntimeException
 	 * @exception Exception
 	 */
 	@Override
-	public SampleVO selectSample(SampleVO vo) throws Exception {
+	public SampleVO selectSample(SampleVO vo) throws BaseRuntimeException, Exception {
 		SampleVO resultVO = sampleMapper.selectSample(vo);
-		if (resultVO == null)
+		if (resultVO == null) {
 			throw processException("info.nodata.msg");
+		}
 		return resultVO;
 	}
 

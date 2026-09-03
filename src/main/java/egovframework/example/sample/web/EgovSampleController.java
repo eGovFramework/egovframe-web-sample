@@ -17,6 +17,7 @@ package egovframework.example.sample.web;
 
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.property.EgovPropertyService;
 import org.egovframe.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
 import org.springframework.stereotype.Controller;
@@ -121,11 +122,10 @@ public class EgovSampleController {
 	 * @param sampleVO - 등록할 정보가 담긴 VO
 	 * @param status
 	 * @return "forward:/egovSampleList.do"
-	 * @exception Exception
 	 */
 	@PostMapping("/addSample.do")
 	public String addSample(@Valid @ModelAttribute("sampleVO") SampleVO sampleVO, BindingResult bindingResult,
-			Model model, RedirectAttributes redirectAttributes, SessionStatus status) throws Exception {
+			Model model, RedirectAttributes redirectAttributes, SessionStatus status) {
 
 		if (bindingResult.hasErrors()) {
 			model.addAttribute("sampleVO", sampleVO);
@@ -147,10 +147,11 @@ public class EgovSampleController {
 	 * @param id - 수정할 글 id
 	 * @param model
 	 * @return "egovSampleRegister"
+	 * @exception BaseRuntimeException
 	 * @exception Exception
 	 */
 	@PostMapping("/updateSampleView.do")
-	public String updateSampleView(@ModelAttribute("sampleVO") SampleVO sampleVO, Model model) throws Exception {
+	public String updateSampleView(@ModelAttribute("sampleVO") SampleVO sampleVO, Model model) throws BaseRuntimeException, Exception {
 
 		SampleVO detail = sampleService.selectSample(sampleVO);
 		detail.setSearchCondition(sampleVO.getSearchCondition());

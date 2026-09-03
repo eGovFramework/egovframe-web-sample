@@ -2,6 +2,7 @@ package egovframework.example.cmmn;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -13,6 +14,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -51,7 +53,7 @@ class EgovErrorViewResourceTest {
 	}
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final ReloadableResourceBundleMessageSource messageSource = messageSource();
 		final Set<Locale> locales = new LinkedHashSet<>(List.of(Locale.KOREAN, Locale.ENGLISH));
@@ -60,7 +62,12 @@ class EgovErrorViewResourceTest {
 
 		// when
 		for (final Path view : ERROR_VIEWS) {
-			final String source = Files.readString(view, StandardCharsets.UTF_8);
+			String source;
+			try {
+				source = Files.readString(view, StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				throw new BaseRuntimeException(e);
+			}
 
 			final Matcher codes = MESSAGE_CODE.matcher(source);
 			while (codes.find()) {

@@ -7,6 +7,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.time.LocalDateTime;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import egovframework.example.sample.service.SampleVO;
@@ -27,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 class EgovSampleControllerTestAddSampleTest extends EgovTestAbstractSpringMvc {
 
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 

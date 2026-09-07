@@ -2,14 +2,17 @@ package egovframework.example.sample.web;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.abort;
 
 import java.time.LocalDateTime;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -50,7 +53,11 @@ class TestEgovSampleControllerTestSelenium {
 		if (log.isDebugEnabled()) {
 			log.debug("게시판 목록 화면 이동");
 		}
-		driver.get("http://localhost:8080/web-example");
+		try {
+			driver.get("http://localhost:8080/egovframe-web");
+		} catch (WebDriverException e) {
+			abort("테스트 서버가 실행 중이 아니므로 테스트를 건너뜁니다.");
+		}
 
 		final JavascriptExecutor executor = (JavascriptExecutor) driver;
 
@@ -89,18 +96,29 @@ class TestEgovSampleControllerTestSelenium {
 		}
 		sleep();
 		final WebElement regUser = driver.findElement(By.id("regUser"));
-		regUser.sendKeys("test 이백행 등록자 " + now);
+		regUser.sendKeys("test");
 
 		// when
 		if (log.isDebugEnabled()) {
 			log.debug("등록 버튼 클릭");
 		}
 		sleep();
-		executor.executeScript("fn_egov_save();");
+		executor.executeScript("sampleAdd();");
+
+		// Switch to the alert
+		Alert alert = driver.switchTo().alert();
+
+		// Accept the alert (click "Yes" or "OK")
+		alert.accept();
+
+		// or Dismiss the alert (click "No" or "Cancel")
+		// alert.dismiss();
+
+		sleep();
 
 		// then
-		final WebElement td5WebElement = driver
-				.findElement(By.cssSelector("#table > table > tbody > tr:nth-child(2) > td:nth-child(5)"));
+		final WebElement td5WebElement = driver.findElement(By
+				.cssSelector("#content_pop > div.krds-table-wrap > table > tbody > tr:nth-child(1) > td:nth-child(4)"));
 		assertEquals(td5String, td5WebElement.getText().trim(), "게시판 등록 화면 실패");
 	}
 

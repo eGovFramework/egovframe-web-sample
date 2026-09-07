@@ -2,6 +2,7 @@ package egovframework.example.sample.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -47,7 +48,7 @@ class EgovSampleServiceImplTestUpdateSampleTest extends EgovTestAbstractSpring {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() throws BaseRuntimeException, Exception {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 

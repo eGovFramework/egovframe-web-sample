@@ -2,12 +2,14 @@ package egovframework.example.sample.web;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -32,9 +34,14 @@ class EgovSampleListJspPageIndexTest {
 			.compile("<input[^>]*name=\"pageIndex\"[^>]*value=\"([^\"]*)\"");
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
-		final String jsp = Files.readString(LIST_JSP, StandardCharsets.UTF_8);
+		String jsp;
+		try {
+			jsp = Files.readString(LIST_JSP, StandardCharsets.UTF_8);
+		} catch (IOException e) {
+			throw new BaseRuntimeException(e);
+		}
 
 		// when
 		final Matcher matcher = PAGE_INDEX_HIDDEN.matcher(jsp);

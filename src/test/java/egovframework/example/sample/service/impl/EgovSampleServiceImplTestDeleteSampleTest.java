@@ -47,7 +47,7 @@ class EgovSampleServiceImplTestDeleteSampleTest extends EgovTestAbstractSpring {
 	private EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO = new SampleVO();
 

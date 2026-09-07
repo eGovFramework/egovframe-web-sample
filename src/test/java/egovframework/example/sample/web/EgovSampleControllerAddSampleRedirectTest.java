@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
 
+import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.ui.ExtendedModelMap;
 import org.springframework.validation.BeanPropertyBindingResult;
@@ -62,11 +63,20 @@ class EgovSampleControllerAddSampleRedirectTest {
 
 	};
 
-	private static EgovSampleController controller() throws Exception {
+	private static EgovSampleController controller()  {
 		final EgovSampleController controller = new EgovSampleController();
-		final Field field = EgovSampleController.class.getDeclaredField("sampleService");
+		Field field;
+		try {
+			field = EgovSampleController.class.getDeclaredField("sampleService");
+		} catch (NoSuchFieldException | SecurityException e) {
+			throw new BaseRuntimeException(e);
+		}
 		field.setAccessible(true);
-		field.set(controller, STUB_SERVICE);
+		try {
+			field.set(controller, STUB_SERVICE);
+		} catch (IllegalArgumentException | IllegalAccessException e) {
+			throw new BaseRuntimeException(e);
+		}
 		return controller;
 	}
 
@@ -84,7 +94,7 @@ class EgovSampleControllerAddSampleRedirectTest {
 	}
 
 	@Test
-	void test() throws Exception {
+	void test() {
 		// given
 		final EgovSampleController controller = controller();
 

@@ -79,7 +79,6 @@ public interface SampleMapper {
 	 * 글 총 개수를 조회한다.
 	 * @param vo - 조회할 정보가 담긴 VO
 	 * @return 글 총 개수
-	 * @exception
 	 */
 	int selectSampleListTotCnt(SampleVO vo);
 

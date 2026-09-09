@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
 
-import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
@@ -48,7 +47,7 @@ class EgovSampleServiceImplTestSelectSampleListTest extends EgovTestAbstractSpri
 	EgovSampleService egovSampleService;
 
 	@Test
-	void test() throws BaseRuntimeException, Exception {
+	void test() {
 		// given
 		final SampleVO sampleVO1 = new SampleVO();
 		sampleVO1.setName("test 목록조회1");

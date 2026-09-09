@@ -131,7 +131,7 @@
                         <label for="name"><spring:message code="title.sample.name" /> <span class="required">*</span></label>
                     </div>
                     <div class="form-conts">
-                        <form:input path="name" maxlength="60" cssClass="krds-input" placeholder="${placeholderName}" />
+                        <form:input path="name" maxlength="50" cssClass="krds-input" placeholder="${placeholderName}" />
                         <form:errors path="name" cssClass="error-message" />
                     </div>
                 </div>
@@ -171,10 +171,10 @@
                     <div class="form-conts">
                         <c:choose>
                             <c:when test="${not empty sampleVO.id}">
-                                <form:input path="regUser" maxLength="60" readonly="true" cssClass="krds-input" placeholder="${confirm.required.user}"/>
+                                <form:input path="regUser" maxLength="10" readonly="true" cssClass="krds-input" placeholder="${confirm.required.user}"/>
                             </c:when>
                             <c:otherwise>
-                                <form:input path="regUser" maxLength="60" cssClass="krds-input" placeholder="${placeholderUser}"/>
+                                <form:input path="regUser" maxLength="10" cssClass="krds-input" placeholder="${placeholderUser}"/>
                             </c:otherwise>
                         </c:choose>
                         <form:errors path="regUser" cssClass="error-message" />

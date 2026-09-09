@@ -4,6 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>egovframework</groupId>
 	<artifactId>egovframe-web</artifactId>
+	<version>5.0.0</version>
 	<packaging>war</packaging>
 	<name>egovframe-web</name>
 	<url>http://egovframe.go.kr</url>
@@ -19,7 +20,7 @@
 	<parent>
 		<groupId>org.egovframe.web</groupId>
 		<artifactId>egovframe-web-config-parent</artifactId>
-		<version>5.0.0</version>
+		<version>5.0.1</version>
 	</parent>
 
 	<repositories>
@@ -210,7 +211,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<skipTests>true</skipTests>
 					<reportFormat>xml</reportFormat>
 					<excludes>
 						<exclude>**/Abstract*.java</exclude>

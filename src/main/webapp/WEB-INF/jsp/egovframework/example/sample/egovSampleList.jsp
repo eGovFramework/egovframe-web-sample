@@ -132,7 +132,7 @@
 						<c:when test="${not empty resultList}">
 							<c:forEach var="result" items="${resultList}" varStatus="status">
 								<tr>
-									<td class="text-center"><c:out value="${paginationInfo.totalRecordCount+1 - ((sampleVO.pageIndex-1) * sampleVO.pageSize + status.count)}"/></td>
+									<td class="text-center"><c:out value="${paginationInfo.totalRecordCount+1 - ((sampleVO.pageIndex-1) * paginationInfo.recordCountPerPage + status.count)}"/></td>
 									<td class="text-center"><a href="javascript:fn_egov_select('<c:out value="${result.id}"/>')"><c:out value="${result.id}" /></a></td>
 									<td class="text-center"><c:out value="${result.name}"/></td>
 									<td class="text-center"><c:out value="${result.description}"/></td>

@@ -7,6 +7,12 @@
         </Console>
     </Appenders>
     <Loggers>
+
+		<!-- Spring 트랜잭션 로그 레벨을 DEBUG/TRACE로 올리면 트랜잭션 시작/커밋/롤백 여부를 확인 -->
+		<!-- <logger name="org.springframework.transaction" level="TRACE"/>
+		<logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG"/>
+		<logger name="org.springframework.transaction.interceptor" level="TRACE"/> -->
+
         <Logger name="java.sql" level="INFO" additivity="false">
             <AppenderRef ref="console" />
         </Logger>

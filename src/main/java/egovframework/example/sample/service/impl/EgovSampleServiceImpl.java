@@ -21,13 +21,13 @@ import org.egovframe.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import org.egovframe.rte.fdl.cmmn.exception.BaseRuntimeException;
 import org.egovframe.rte.fdl.cmmn.exception.FdlException;
 import org.egovframe.rte.fdl.idgnr.EgovIdGnrService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import egovframework.example.sample.service.EgovSampleService;
 import egovframework.example.sample.service.SampleVO;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Class Name : EgovSampleServiceImpl.java
@@ -48,9 +48,8 @@ import jakarta.annotation.Resource;
  */
 
 @Service("sampleService")
+@Slf4j
 public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements EgovSampleService {
-
-	private static final Logger LOGGER = LoggerFactory.getLogger(EgovSampleServiceImpl.class);
 
 	/** SampleMapper */
 	@Resource(name = "sampleMapper")
@@ -67,7 +66,14 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public void insertSample(SampleVO vo) {
-		LOGGER.debug(vo.toString());
+		// 실제 트랜잭션 적용 여부를 확인
+		if (log.isDebugEnabled()) {
+			log.debug("Transaction active: {}", TransactionSynchronizationManager.isActualTransactionActive());
+			log.debug("Transaction readOnly: {}", TransactionSynchronizationManager.isCurrentTransactionReadOnly());
+			log.debug("Transaction name: {}", TransactionSynchronizationManager.getCurrentTransactionName());
+		}
+
+		log.debug("getId={}", vo.getId());
 
 		/** ID Generation Service */
 		String id;
@@ -77,7 +83,7 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 			throw new BaseRuntimeException(e);
 		}
 		vo.setId(id);
-		LOGGER.debug(vo.toString());
+		log.debug("getId={}", vo.getId());
 
 		sampleMapper.insertSample(vo);
 	}
@@ -123,6 +129,13 @@ public class EgovSampleServiceImpl extends EgovAbstractServiceImpl implements Eg
 	 */
 	@Override
 	public List<?> selectSampleList(SampleVO vo) {
+		// 실제 트랜잭션 적용 여부를 확인
+		if (log.isDebugEnabled()) {
+			log.debug("Transaction active: {}", TransactionSynchronizationManager.isActualTransactionActive());
+			log.debug("Transaction readOnly: {}", TransactionSynchronizationManager.isCurrentTransactionReadOnly());
+			log.debug("Transaction name: {}", TransactionSynchronizationManager.getCurrentTransactionName());
+		}
+
 		return sampleMapper.selectSampleList(vo);
 	}
 

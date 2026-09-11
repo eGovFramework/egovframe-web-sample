@@ -12,6 +12,7 @@
 
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
+			<tx:method name="select*" read-only="true"/>
 			<tx:method name="*" rollback-for="Exception"/>
 		</tx:attributes>
 	</tx:advice>
